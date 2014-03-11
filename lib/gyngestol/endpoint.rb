@@ -16,10 +16,83 @@ module Gyngestol
       end
     end
 
+    class Router
+      def route(actions, request)
+        raise NotImplementedError
+      end
+    end
+
+    class SimpleRouter < Router
+      def initialize(actions)
+        @actions = actions
+      end
+
+      def route(actions, request)
+        @actions.find{ |action| action.matches?(request.path, request.request_method)  }
+      end
+    end
+
+    class RouterBuilder
+      def add_action(action)
+      end
+
+      def result
+      end
+    end
+
+    class SimpleRouterBuilder < RouterBuilder
+
+      attr_reader :result
+
+      def initialize
+        @result = []
+      end
+
+      def add_action(action)
+        @result << action
+      end
+    end
+
     included do
       attr_reader :actions
 
+      include DSL
+
       @actions = []
+      @invoked_methods = {}
+    end
+
+    module DSL
+
+      @dsl_methods = {}
+
+      def self.add_method(name, &block)
+        @dsl_methods.merge!(name => block)
+
+        self.define_method(name) do |*args|
+          @invoked_methods[name] = *args
+        end
+      end
+
+      def action(options)
+        method, url = options.shift
+        raise if @last_action
+        raise ArgumentError, "Got #{method.inspect}, expected one of #{HTTP_METHODS}" unless method.to_s.in?(HTTP_METHODS)
+
+        @last_action = Action.new(url, method.upcase.to_s, options)
+        @actions << @last_action
+      end
+
+      def method_added(meth)
+        @last_action.options.merge!(method_name: meth)
+
+        @invoked_methods.each do |name, args|
+          @dsl_methods[name].call(@last_action, *args)
+        end
+
+        @last_action = nil
+      end
+
     end
 
     module ClassMethods
@@ -27,24 +100,6 @@ module Gyngestol
       include Escapes
 
       attr_reader :escape_handler
-
-      def action(options)
-        method, url = options.shift
-        raise ArgumentError, "Got #{method.inspect}, expected one of #{HTTP_METHODS}" unless method.to_s.in?(HTTP_METHODS)
-        @last_action = Action.new(url, method.upcase.to_s, options)
-        @actions << @last_action
-      end
-
-      def method_added(meth)
-        if @last_action
-          @last_action.options.merge!(method_name: meth)
-          @last_action = nil
-        end
-      end
-
-      def find_action(actions, request)
-        actions.find{ |action| action.matches?(request.path, request.request_method)  }
-      end
 
       def call(env)
         result = nil
