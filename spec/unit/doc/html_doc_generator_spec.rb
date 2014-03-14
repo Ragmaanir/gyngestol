@@ -14,8 +14,7 @@ describe Gyngestol::Doc::HTMLDocGenerator do
   let(:doc) { described_class.new.generate(B) }
 
   it 'generate markdown' do
-    doc.should match(/<h2>\s*Action:/)
-    doc.should match(%r{:get=>"/"})
+    doc.should match(%r{GET /})
     doc.should match(%r{index})
   end
 

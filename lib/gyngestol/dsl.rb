@@ -10,6 +10,7 @@ module Gyngestol
     module ClassMethods
 
       attr_reader :method_annotations
+      attr_accessor :escape_handler
 
       def namespace(*args)
         if args.empty?

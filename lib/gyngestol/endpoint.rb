@@ -44,5 +44,5 @@ module Gyngestol
       [status, {"Content-Type" => CONTENT_TYPES[content_type]}, [text]]
     end
 
-  end
+  end#Endpoint
 end

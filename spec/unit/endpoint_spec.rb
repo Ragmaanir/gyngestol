@@ -7,13 +7,12 @@ describe Gyngestol::Endpoint, :rack do
 
       action get: '/'
       def index
-        #update
-        respond_with :json, {success: true}.to_json
+        respond_with :json, {called: 'index'}.to_json
       end
 
       action put: '/'
       def update
-        respond_with :json, {success: true}.to_json
+        respond_with :json, {called: 'update'}.to_json
       end
     end
   end
@@ -27,7 +26,7 @@ describe Gyngestol::Endpoint, :rack do
       get '/'
 
       last_response.should be_ok
-      last_response.body.should == '{"success":true}'
+      last_response.body.should == '{"called":"index"}'
     end
   end
 
@@ -36,7 +35,7 @@ describe Gyngestol::Endpoint, :rack do
       put '/'
 
       last_response.should be_ok
-      last_response.body.should == '{"success":true}'
+      last_response.body.should == '{"called":"update"}'
     end
   end
 
