@@ -32,8 +32,8 @@ module Gyngestol
       end
 
       def self.route(actions, request)
-        @actions ||= self.method_annotations.map{ |method_name, a|
-          verb, url = a[:action].first.shift
+        @actions ||= self.method_annotations.map{ |method_name, annotations|
+          verb, url = annotations[:action].first.shift
 
           Action.new(url, verb, method_name)
         }
