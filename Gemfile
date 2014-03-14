@@ -1,7 +1,6 @@
 source 'http://rubygems.org'
 
 gem 'rack'
-gem 'rack-test'
 gem 'activesupport', require: false
 gem 'virtus'
 
@@ -12,5 +11,7 @@ group 'development', 'test' do
 end
 
 group 'test' do
+  gem 'rack-test'
   gem 'rspec'
+  gem 'wrong'
 end

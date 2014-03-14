@@ -26,8 +26,17 @@ module Gyngestol
     end
 
     class ActionNotFoundEscape < Escape
+
       def initialize(request, reason: 'Action not found')
         super(request, reason)
+      end
+
+      def status
+        404
+      end
+
+      def response
+        reason
       end
     end
 
