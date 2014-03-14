@@ -19,7 +19,7 @@ describe Gyngestol::Endpoint, :rack do
   end
 
   def app
-    MyEndpoint
+    Gyngestol::MountPoint.new(MyEndpoint)
   end
 
   describe '#index' do

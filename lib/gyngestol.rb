@@ -9,6 +9,7 @@ module Gyngestol
 
   $LOAD_PATH.unshift(File.join(ROOT, 'lib'))
 
+  autoload :MountPoint, 'gyngestol/mount_point'
   autoload :Endpoint, 'gyngestol/endpoint'
   autoload :Escapes, 'gyngestol/escapes'
   #autoload :Routing, 'gyngestol/routing'
