@@ -8,10 +8,7 @@ module Gyngestol
 
     def initialize(cls, root_namespace, &block)
       @root_namespace = root_namespace
-      # @matcher_stack = []
-      # @children_stack = []
-      #@node_stack = [Gyngestol::RoutingDSL::Node.new(matcher: Matcher.new(regex: //), children: [])]
-      #@node_stack = [Gyngestol::RoutingDSL::Node.new(matcher: SLASH_MATCHER, children: [])]
+
       @node_stack = [Gyngestol::InnerNode.new(children: [])]
 
       instance_eval(&block)
@@ -19,9 +16,12 @@ module Gyngestol
       @router = construct_router(cls)
     end
 
+    def self.build(*args, &block)
+      new(*args, &block).router
+    end
+
   private
 
-    #attr_accessor :matcher_stack, :children_stack
     attribute :node_stack, Array[Gyngestol::Node]
 
     def construct_router(cls)

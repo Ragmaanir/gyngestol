@@ -18,13 +18,14 @@ Gem::Specification.new do |s|
   s.required_ruby_version     = "~> 2.1"
   s.rubyforge_project         = "gyngestol"
 
-  s.add_runtime_dependency 'rack', '~> 1.5'
+  s.add_runtime_dependency 'rack', '~> 1.6'
   s.add_runtime_dependency 'activesupport', '~> 4.2'
   s.add_runtime_dependency 'virtus', '~> 1.0'
 
   s.add_development_dependency "rspec", '~> 3.0'
   s.add_development_dependency 'rack-test', '~> 0.6'
   s.add_development_dependency 'wrong', '~> 0.7'
+  s.add_development_dependency 'rerun', '~> 0.10'
 
   s.add_development_dependency 'pry', '~> 0.9'
   s.add_development_dependency 'binding_of_caller', '~> 0.7'

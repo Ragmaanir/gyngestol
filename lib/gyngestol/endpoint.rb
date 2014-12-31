@@ -19,13 +19,9 @@ module Gyngestol
       :json => 'application/json'
     }
 
-    included do
-      include DSL
-    end
-
-    def initialize(request, response)
+    def initialize(request)
       @request = request
-      @response = response
+      #@response = response
     end
 
     def request

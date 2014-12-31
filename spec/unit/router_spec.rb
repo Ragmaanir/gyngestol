@@ -30,4 +30,5 @@ describe Gyngestol::Router do
       assert { router.route('/test') == nil }
     end
   end
+
 end

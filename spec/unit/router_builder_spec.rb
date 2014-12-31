@@ -18,8 +18,8 @@ describe Gyngestol::RouterBuilder do
 
     assert{
       b.router == Gyngestol::Router.new(root: Gyngestol::InnerNode.new(route_matcher: nil, children: [
-        Gyngestol::InnerNode.new(route_matcher: %r{users/}, children: [
-          Gyngestol::TerminalNode.new(verb_matcher: ['get'])
+        Gyngestol::InnerNode.new(route_matcher: %r{users}, children: [
+          Gyngestol::TerminalNode.new(verb_matcher: ['get'], action: Gyngestol::Action.new(nil, :show))
         ])
       ]))
     }
