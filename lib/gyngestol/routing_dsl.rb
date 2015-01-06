@@ -28,8 +28,17 @@ module Gyngestol
     #   }
     # }
 
+    MATCHERS = {
+      :int => %r{\d+}
+    }.freeze
+
     def path(matcher, &block)
-      node = InnerNode.new(route_matcher: Regexp.new(matcher))
+      matcher = case matcher
+        when String then Regexp.new(matcher)
+        when Symbol then MATCHERS[matcher]
+      end
+
+      node = InnerNode.new(route_matcher: matcher)
       node_stack << node
 
       instance_eval(&block)
@@ -45,7 +54,8 @@ module Gyngestol
       #cls = options[:class] || infer_current_class(node_stack.drop(1).map(&:route_matcher))
 
       cls = case options[:class]
-        when Symbol, String then infer_current_class(node_stack.drop(1).map(&:route_matcher)).const_get(options[:class].to_s)
+        #when Symbol, String then infer_current_class(node_stack.drop(1).map(&:route_matcher)).const_get(options[:class].to_s)
+        when Symbol, String then root_namespace.const_get(options[:class].to_s)
         when nil then infer_current_class(node_stack.drop(1).map(&:route_matcher))
       end
 
@@ -64,7 +74,7 @@ module Gyngestol
         if namespace.const_defined?(const_name)
           namespace.const_get(const_name)
         else
-          return nil
+          nil
         end
       end
     end

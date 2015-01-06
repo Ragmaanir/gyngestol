@@ -15,6 +15,11 @@ module SimpleServer
         respond_with(:json, '{success: true}')
       end
     end
+
+    class Users
+      def show(id)
+      end
+    end
   end
 end
 
@@ -24,6 +29,12 @@ router = Gyngestol::RouterBuilder.build(Gyngestol::Router, SimpleServer::Control
 
   action :get, :show, class: :Root
   action :post, :create, class: :Root
+
+  path 'users' do
+    path :int do
+      action :get, :show, class: :Users
+    end
+  end
 end
 
 builder = Rack::Builder.new do
