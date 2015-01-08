@@ -3,6 +3,7 @@ PATH
   specs:
     gyngestol (0.0.1)
       activesupport (~> 4.2)
+      ice_nine (~> 0.11)
       rack (~> 1.6)
       virtus (~> 1.0)
 

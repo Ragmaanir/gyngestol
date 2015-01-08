@@ -15,7 +15,7 @@ module Gyngestol
 
     def equal_node?(other)
       route_matcher == other.route_matcher &&
-      children.zip(other.children).all? { |a,b| a == b || binding.pry }
+      children.zip(other.children).all? { |a,b| a == b }
     end
 
     def inspect

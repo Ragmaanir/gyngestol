@@ -9,7 +9,7 @@ module Gyngestol
     def initialize(cls, root_namespace, &block)
       @root_namespace = root_namespace
 
-      @node_stack = [Gyngestol::InnerNode.new(children: [])]
+      @node_stack = [Gyngestol::InnerNode.new(children: [], namespace: root_namespace)]
 
       instance_eval(&block)
 

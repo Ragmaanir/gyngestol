@@ -4,6 +4,12 @@ module Gyngestol
     include Virtus.model
 
     attribute :parent, Node, default: nil
+    attribute :namespace, Object
+    attribute :callback, Proc, default: nil
+
+    def namespace
+      super || parent.try(:namespace)
+    end
 
     def path
       node = self

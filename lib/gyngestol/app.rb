@@ -6,13 +6,12 @@ module Gyngestol
     attribute :router
 
     def call(env)
-      request = Request.new(method: env['REQUEST_METHOD'].downcase, path: env['REQUEST_PATH'].downcase)
+      request = Request.new(method: env['REQUEST_METHOD'].downcase, path: env['PATH_INFO'].downcase)
 
       if route = router.route(request)
-        controller = route.action.controller.new(Rack::Request.new(env))
 
         result = catch(:gyngestol_escape) do
-          controller.send(route.action.action)
+          route.action.call(Rack::Request.new(env), route.args)
         end
 
         response = case result
@@ -24,7 +23,7 @@ module Gyngestol
             else
               default_escape_handler(result)
             end
-          else result
+          else status_response(200, text: result.to_s)
         end
 
         response

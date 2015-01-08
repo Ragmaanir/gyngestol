@@ -1,5 +1,6 @@
 module Gyngestol
 
+  # FIXME subclass / use Rack::Request
   class Request
     include Virtus.value_object
 
@@ -18,6 +19,7 @@ module Gyngestol
 
     values do
       attribute :nodes, Array[Node]
+      attribute :args, Array[Object]
     end
 
     def action
@@ -39,10 +41,7 @@ module Gyngestol
     def route(request)
       request = Request.new(path: request, method: 'get') if request.is_a?(String)
 
-      if terms = find_terminal_nodes_for(request.path)
-        term = terms.find{ |t| t.matches?(request.method) }
-        Route.new(nodes: term.path) if term
-      end
+      find_route_for(request)
     end
 
     def routes?(request)
@@ -58,30 +57,24 @@ module Gyngestol
 
   private
 
-    def find_terminal_nodes_for(path)
-      raise("path is nil") if path.nil?
+    def find_route_for(request)
       node = root || raise
-      remaining_path = path.split('/').reject(&:blank?)
-
-      print "Routing: "
+      remaining_path = request.path.split('/').reject(&:blank?)
+      args = []
 
       while node.is_a?(InnerNode) && segment = remaining_path.shift
-        print "#{segment} -> "
-
-        node = node.children.find{ |n| n.matches?(segment) }
+        if node = node.children.find{ |n| n.matches?(segment) }
+          args << node.callback.call(segment) if node.callback
+        end
       end
 
       if remaining_path.blank? && node.is_a?(InnerNode)
         terminals = node.children.select{ |c| c.is_a?(TerminalNode) }
+
+        term = terminals.find{ |t| t.matches?(request.method) }
+
+        return Route.new(nodes: term.path, args: args) if term
       end
-
-      puts "Found: #{terminals.inspect}"
-
-      terminals
-    end
-
-    def generate_route(node_path)
-      Route.new(nodes: node_path)
     end
 
   end

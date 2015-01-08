@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'rack', '~> 1.6'
   s.add_runtime_dependency 'activesupport', '~> 4.2'
   s.add_runtime_dependency 'virtus', '~> 1.0'
+  s.add_runtime_dependency 'ice_nine', '~> 0.11'
 
   s.add_development_dependency "rspec", '~> 3.0'
   s.add_development_dependency 'rack-test', '~> 0.6'

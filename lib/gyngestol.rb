@@ -1,6 +1,7 @@
 require 'active_support'
 require 'active_support/core_ext'
 require 'virtus'
+require 'ice_nine'
 require 'rack'
 
 require 'pry'
@@ -12,7 +13,7 @@ module Gyngestol
   $LOAD_PATH.unshift(File.join(ROOT, 'lib'))
 
   autoload :App, 'gyngestol/app'
-  autoload :Action, 'gyngestol/terminal_node'
+  autoload :Action, 'gyngestol/action'
   autoload :Router, 'gyngestol/router'
   autoload :RouteMatcher, 'gyngestol/router'
   autoload :RoutingDSL, 'gyngestol/routing_dsl'

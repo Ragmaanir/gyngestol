@@ -10,19 +10,41 @@ describe Gyngestol::RouterBuilder do
   end
 
   it '' do
-    b = described_class.new(Gyngestol::Router, Object) do
+    router = described_class.build(Gyngestol::Router, Object) do
       path 'users' do
         action :get, :show
       end
     end
 
     assert{
-      b.router == Gyngestol::Router.new(root: Gyngestol::InnerNode.new(route_matcher: nil, children: [
+      router == Gyngestol::Router.new(root: Gyngestol::InnerNode.new(route_matcher: nil, children: [
         Gyngestol::InnerNode.new(route_matcher: %r{users}, children: [
-          Gyngestol::TerminalNode.new(verb_matcher: ['get'], action: Gyngestol::Action.new(nil, :show))
+          Gyngestol::TerminalNode.new(verb_matcher: ['get'], action: Gyngestol::Action.new(controller: Object, action: :show))
         ])
       ]))
     }
+  end
+
+  it '' do
+    class User
+      def initialize(*args)
+      end
+
+      def show(id)
+      end
+    end
+
+    r = described_class.build(Gyngestol::Router, Object) do
+      namespace 'users' do
+        path :int do
+          action :get, :show
+        end
+      end
+    end
+
+    route = r.route('/users/1337')
+
+    route.action.call(Rack::Request.new({}), *route.args)
   end
 
 end

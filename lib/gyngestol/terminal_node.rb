@@ -1,7 +1,6 @@
 module Gyngestol
 
   HTTP_VERBS = %w{head get post put delete}
-  Action = Struct.new(:controller, :action)
 
   class TerminalNode < Node
     attribute :verb_matcher, Array[String], default: HTTP_VERBS
