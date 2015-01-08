@@ -1,35 +1,20 @@
 module Gyngestol
 
-  # # FIXME subclass / use Rack::Request
-  # class Request
-  #   include Virtus.value_object
-
-  #   values do
-  #     attribute :path, String
-  #     attribute :method, String
-  #   end
-
-  #   def inspect
-  #     "Request(#{method} #{path})"
-  #   end
-  # end
-
   class Route
     include Virtus.value_object
 
     values do
-      attribute :nodes, Array[Node]
+      attribute :node, Node
       attribute :args, Array[Object]
     end
 
     def action
-      nodes.last.action
+      node.action
     end
 
     def inspect
-      *path, verb = nodes
-      node_str = path.map{ |n| n.route_matcher }
-      "Route(#{node_str} #{verb.verb_matcher})"
+      node_str = node.path.map{ |n| n.route_matcher }
+      "Route(#{node_str} #{node.verb_matcher})"
     end
   end
 
@@ -56,7 +41,7 @@ module Gyngestol
 
         term = terminals.find{ |t| t.matches?(request.request_method) }
 
-        return Route.new(nodes: term.path, args: args) if term
+        return Route.new(node: term, args: args) if term
       end
     end
 

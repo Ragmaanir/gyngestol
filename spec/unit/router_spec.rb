@@ -25,8 +25,8 @@ describe Gyngestol::Router do
         Gyngestol::TerminalNode.new()
       ]))
 
-      assert { router.route('/') == Gyngestol::Route.new(nodes: [router.root, router.root.children.last]) }
-      assert { router.route('/users') == Gyngestol::Route.new(nodes: [router.root, router.root.children.first, router.root.children.first.children.first]) }
+      assert { router.route('/') == Gyngestol::Route.new(node: router.root.children.last) }
+      assert { router.route('/users') == Gyngestol::Route.new(node: router.root.children.first.children.first) }
       assert { router.route('/test') == nil }
     end
   end

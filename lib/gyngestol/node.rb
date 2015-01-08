@@ -13,7 +13,7 @@ module Gyngestol
 
     def path
       node = self
-      node_path = [node]
+      node_path = []
 
       while node.parent
         node = node.parent

@@ -29,9 +29,11 @@ describe Gyngestol::App, type: :integration do
 
       get '/users/1337'
       assert{ last_response.status == 200 }
+      assert{ last_response.body == "1337" }
 
-      get '/users/1337/'
+      get '/users/1/'
       assert{ last_response.status == 200 }
+      assert{ last_response.body == "1" }
 
       get '/users'
       assert { last_response.status == 404 }

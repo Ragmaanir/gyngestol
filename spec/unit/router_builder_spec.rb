@@ -10,7 +10,15 @@ describe Gyngestol::RouterBuilder do
   end
 
   it '' do
-    router = described_class.build(Gyngestol::Router, Object) do
+    class Controller
+      def initialize(req)
+      end
+
+      def show
+      end
+    end
+
+    router = described_class.build(Gyngestol::Router, Controller) do
       path 'users' do
         action :get, :show
       end
@@ -19,7 +27,7 @@ describe Gyngestol::RouterBuilder do
     assert{
       router == Gyngestol::Router.new(root: Gyngestol::InnerNode.new(route_matcher: nil, children: [
         Gyngestol::InnerNode.new(route_matcher: %r{users}, children: [
-          Gyngestol::TerminalNode.new(verb_matcher: ['get'], action: Gyngestol::Action.new(controller: Object, action: :show))
+          Gyngestol::TerminalNode.new(verb_matcher: ['get'], action: Gyngestol::Action.new(controller: Controller, action: :show))
         ])
       ]))
     }
