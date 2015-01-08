@@ -6,7 +6,8 @@ module Gyngestol
     attribute :router
 
     def call(env)
-      request = Request.new(method: env['REQUEST_METHOD'].downcase, path: env['PATH_INFO'].downcase)
+      #request = Request.new(method: env['REQUEST_METHOD'].downcase, path: env['PATH_INFO'].downcase)
+      request = Rack::Request.new(env)
 
       if route = router.route(request)
 

@@ -7,7 +7,7 @@ module Gyngestol
     attribute :action, Action
 
     def match(verb)
-      verb.in?(verb_matcher)
+      verb.downcase.in?(verb_matcher)
     end
 
     def equal_node?(other)
