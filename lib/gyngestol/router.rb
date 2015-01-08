@@ -1,23 +1,5 @@
 module Gyngestol
 
-  class Route
-    include Virtus.value_object
-
-    values do
-      attribute :node, Node
-      attribute :args, Array[Object]
-    end
-
-    def action
-      node.action
-    end
-
-    def inspect
-      node_str = node.path.map{ |n| n.route_matcher }
-      "Route(#{node_str} #{node.verb_matcher})"
-    end
-  end
-
   class Router
     include Virtus.model
 
@@ -32,6 +14,9 @@ module Gyngestol
 
       while node.is_a?(InnerNode) && segment = remaining_path.shift
         if node = node.children.find{ |n| n.matches?(segment) }
+          # TODO make the callback do the pushing of args.
+          # then it will be possible to create callbacks which e.g.
+          # just print out infos without pushing nil into the args.
           args << node.callback.call(segment) if node.callback
         end
       end
