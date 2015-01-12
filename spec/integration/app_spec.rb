@@ -11,7 +11,8 @@ describe Gyngestol::App, type: :integration do
       router = Gyngestol::RouterBuilder.build(Gyngestol::Router, Object) do
         namespace 'users' do
           path :int do
-            action :get, :show
+            get :show
+            put :update
           end
         end
       end
@@ -23,6 +24,10 @@ describe Gyngestol::App, type: :integration do
         end
 
         def show(id)
+          id
+        end
+
+        def update(id)
           id
         end
       end
@@ -37,6 +42,10 @@ describe Gyngestol::App, type: :integration do
 
       get '/users'
       assert { last_response.status == 404 }
+
+      put '/users/123'
+      assert{ last_response.status == 200 }
+      assert{ last_response.body == '123' }
     end
 
   end

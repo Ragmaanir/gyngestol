@@ -4,20 +4,8 @@ require 'active_support/hash_with_indifferent_access'
 module Gyngestol
   module Endpoint
 
-    HTTP_METHODS = %w{head get put post delete}
-
     extend ActiveSupport::Concern
     include Escapes
-
-    DEFAULT_STATUS_MESSAGES = {
-      500 => 'Internal Server Error',
-      200 => 'Ok',
-      404 => 'Not Found'
-    }
-
-    CONTENT_TYPES = {
-      :json => 'application/json'
-    }
 
     def initialize(request)
       @request = request
@@ -33,11 +21,17 @@ module Gyngestol
     end
 
     def respond_with(format, text)
-      throw :gyngestol_escape, ActionEscape.new(request, status_response(200, content_type: format, text: text))
+      response = status_response(200, content_type: format, text: text)
+      escape_action_with!(ActionEscape.new(request, response))
     end
 
-    def status_response(status, content_type: :json, text: DEFAULT_STATUS_MESSAGES[status])
-      [status, {"Content-Type" => CONTENT_TYPES[content_type]}, [text]]
+    def status_response(status, content_type: :json, text: HttpUtils::DEFAULT_STATUS_MESSAGES[status])
+      [status, {"Content-Type" => HttpUtils::CONTENT_TYPES[content_type]}, [text]]
+    end
+
+    def escape_action_with!(escape)
+      raise ArgumentError unless escape.is_a?(ActionEscape)
+      throw :gyngestol_escape, escape
     end
 
   end#Endpoint

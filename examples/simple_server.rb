@@ -16,23 +16,24 @@ module SimpleServer
       end
     end
 
-    class Users
+    class User
+      def initialize(req)
+      end
+
       def show(id)
+        p id
       end
     end
   end
 end
 
 router = Gyngestol::RouterBuilder.build(Gyngestol::Router, SimpleServer::Controllers) do
-  #action :get, :show, class: SimpleServer::Controllers::Root
-  #action :post, :create, class: SimpleServer::Controllers::Root
+  get :show, class: :Root
+  post :create, class: :Root
 
-  action :get, :show, class: :Root
-  action :post, :create, class: :Root
-
-  path 'users' do
+  namespace 'users' do
     path :int do
-      action :get, :show, class: :Users
+      get :show
     end
   end
 end

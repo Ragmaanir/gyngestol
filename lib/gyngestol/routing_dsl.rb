@@ -73,6 +73,22 @@ module Gyngestol
       new_child_node(node, &block)
     end
 
+    def get(*args)
+      action(:get, *args)
+    end
+
+    def put(*args)
+      action(:put, *args)
+    end
+
+    def post(*args)
+      action(:post, *args)
+    end
+
+    def delete(*args)
+      action(:delete, *args)
+    end
+
     def action(verb, action_name, options={})
       verb = verb.to_s if verb.is_a?(Symbol)
       verb = [verb] unless verb.is_a?(Array)

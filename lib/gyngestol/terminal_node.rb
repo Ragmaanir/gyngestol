@@ -1,9 +1,7 @@
 module Gyngestol
 
-  HTTP_VERBS = %w{head get post put delete}
-
   class TerminalNode < Node
-    attribute :verb_matcher, Array[String], default: HTTP_VERBS
+    attribute :verb_matcher, Array[String], default: HttpUtils::REQUEST_METHODS
     attribute :action, Action
 
     def match(verb)
