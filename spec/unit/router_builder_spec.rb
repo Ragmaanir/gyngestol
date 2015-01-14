@@ -33,26 +33,26 @@ describe Gyngestol::RouterBuilder do
     }
   end
 
-  it '' do
-    class User
-      def initialize(*args)
-      end
+  # it '' do
+  #   class User
+  #     def initialize(*args)
+  #     end
 
-      def show(id)
-      end
-    end
+  #     def show(id)
+  #     end
+  #   end
 
-    r = described_class.build(Gyngestol::Router, Object) do
-      namespace 'users' do
-        path :int do
-          action :get, :show
-        end
-      end
-    end
+  #   r = described_class.build(Gyngestol::Router, Object) do
+  #     namespace 'users' do
+  #       path :int do
+  #         action :get, :show
+  #       end
+  #     end
+  #   end
 
-    route = r.route('/users/1337')
+  #   route = r.route('/users/1337')
 
-    route.action.call(Rack::Request.new({}), *route.args)
-  end
+  #   route.action.call(Rack::Request.new({}), *route.args)
+  # end
 
 end

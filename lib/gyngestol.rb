@@ -14,6 +14,7 @@ module Gyngestol
 
   autoload :App,            'gyngestol/app'
   autoload :Action,         'gyngestol/action'
+  autoload :Configuration,  'gyngestol/configuration'
   autoload :Route,          'gyngestol/route'
   autoload :Router,         'gyngestol/router'
   autoload :RoutingDSL,     'gyngestol/routing_dsl'

@@ -8,11 +8,11 @@ module SimpleServer
       include Gyngestol::Endpoint
 
       def show
-        respond_with(:json, '{}')
+        respond_with(:json, {})
       end
 
       def create
-        respond_with(:json, '{success: true}')
+        respond_with(:json, success: true)
       end
     end
 
@@ -21,7 +21,7 @@ module SimpleServer
       end
 
       def show(id)
-        p id
+        id
       end
     end
   end
