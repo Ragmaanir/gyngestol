@@ -1,7 +1,7 @@
 describe Gyngestol::RouterBuilder do
 
   it '' do
-    b = described_class.new(Gyngestol::Router, Object) do
+    b = described_class.new do
     end
 
     assert{
@@ -18,7 +18,7 @@ describe Gyngestol::RouterBuilder do
       end
     end
 
-    router = described_class.build(Gyngestol::Router, Controller) do
+    router = described_class.build(namespace: Controller) do
       path 'users' do
         action :get, :show
       end

@@ -27,7 +27,7 @@ module SimpleServer
   end
 end
 
-router = Gyngestol::RouterBuilder.build(Gyngestol::Router, SimpleServer::Controllers) do
+router = Gyngestol::RouterBuilder.build(namespace: SimpleServer::Controllers) do
   get :show, class: :Root
   post :create, class: :Root
 

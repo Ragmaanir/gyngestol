@@ -6,14 +6,14 @@ module Gyngestol
     attribute :router, Router
     attribute :root_namespace, Object
 
-    def initialize(cls, root_namespace, &block)
-      @root_namespace = root_namespace
+    def initialize(namespace: Object, klass: Gyngestol::Router, &block)
+      @root_namespace = namespace
 
-      @node_stack = [Gyngestol::InnerNode.new(children: [], namespace: root_namespace)]
+      @node_stack = [Gyngestol::InnerNode.new(children: [], namespace: @root_namespace)]
 
       instance_eval(&block)
 
-      @router = construct_router(cls)
+      @router = construct_router(klass)
     end
 
     def self.build(*args, &block)

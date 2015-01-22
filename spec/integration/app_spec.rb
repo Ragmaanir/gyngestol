@@ -8,7 +8,7 @@ describe Gyngestol::App, type: :integration do
     end
 
     let(:router) do
-      router = Gyngestol::RouterBuilder.build(Gyngestol::Router, Object) do
+      router = Gyngestol::RouterBuilder.build do
         namespace 'users' do
           get :index
 
@@ -70,7 +70,7 @@ describe Gyngestol::App, type: :integration do
     end
 
     let(:router) do
-      router = Gyngestol::RouterBuilder.build(Gyngestol::Router, Object) do
+      router = Gyngestol::RouterBuilder.build do
         namespace 'users' do
           path :int do
             get :show
