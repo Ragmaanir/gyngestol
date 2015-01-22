@@ -8,10 +8,6 @@ require 'pry'
 
 module Gyngestol
 
-  ROOT = File.join(File.dirname(__FILE__), '..')
-
-  $LOAD_PATH.unshift(File.join(ROOT, 'lib'))
-
   autoload :App,            'gyngestol/app'
   autoload :Action,         'gyngestol/action'
   autoload :Configuration,  'gyngestol/configuration'
