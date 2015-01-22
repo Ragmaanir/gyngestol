@@ -4,8 +4,6 @@ require 'virtus'
 require 'ice_nine'
 require 'rack'
 
-require 'pry'
-
 module Gyngestol
 
   autoload :App,            'gyngestol/app'
