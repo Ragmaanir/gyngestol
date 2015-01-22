@@ -15,6 +15,7 @@ module Gyngestol
   autoload :App,            'gyngestol/app'
   autoload :Action,         'gyngestol/action'
   autoload :Configuration,  'gyngestol/configuration'
+  autoload :NullLogger,     'gyngestol/null_logger'
   autoload :Route,          'gyngestol/route'
   autoload :Router,         'gyngestol/router'
   autoload :RoutingDSL,     'gyngestol/routing_dsl'
@@ -28,9 +29,9 @@ module Gyngestol
   autoload :Escapes,        'gyngestol/escapes'
   autoload :DSL,            'gyngestol/dsl'
 
-  module Doc
-    autoload :DocGenerator,     'gyngestol/doc/doc_generator'
-    autoload :HTMLDocGenerator, 'gyngestol/doc/html_doc_generator'
-  end
+  #module Doc
+  #  autoload :DocGenerator,     'gyngestol/doc/doc_generator'
+  #  autoload :HTMLDocGenerator, 'gyngestol/doc/html_doc_generator'
+  #end
 
 end

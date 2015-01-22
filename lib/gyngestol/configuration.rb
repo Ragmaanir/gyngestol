@@ -9,8 +9,8 @@ module Gyngestol
 
       attribute :default_error_handler, Proc, default: lambda { |_,_|
         ->(request, error) {
-          puts "Caught #{error.class}: #{error.message}"
-          puts error.backtrace.join("\n")
+          logger.error{ "Caught #{error.class}: #{error.message}" }
+          logger.error{ error.backtrace.join("\n") }
           status_response(500)
         }
       }

@@ -7,8 +7,8 @@ module Gyngestol
       attribute :action, Symbol
     end
 
-    def call(req, args)
-      controller.new(req).send(action, *args)
+    def call(app, req, args)
+      controller.new(app, req).send(action, *args)
     end
   end
 end
