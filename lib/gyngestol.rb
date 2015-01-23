@@ -4,28 +4,25 @@ require 'virtus'
 require 'ice_nine'
 require 'rack'
 
+require 'gyngestol/http_utils'
+
+require 'gyngestol/escapes'
+require 'gyngestol/endpoint'
+require 'gyngestol/action'
+require 'gyngestol/configuration'
+require 'gyngestol/null_logger'
+
+require 'gyngestol/node'
+require 'gyngestol/inner_node'
+require 'gyngestol/terminal_node'
+
+require 'gyngestol/route'
+require 'gyngestol/router'
+require 'gyngestol/routing_dsl'
+require 'gyngestol/router_builder'
+
+require 'gyngestol/app'
+
 module Gyngestol
-
-  autoload :App,            'gyngestol/app'
-  autoload :Action,         'gyngestol/action'
-  autoload :Configuration,  'gyngestol/configuration'
-  autoload :NullLogger,     'gyngestol/null_logger'
-  autoload :Route,          'gyngestol/route'
-  autoload :Router,         'gyngestol/router'
-  autoload :RoutingDSL,     'gyngestol/routing_dsl'
-  autoload :RouterBuilder,  'gyngestol/router_builder'
-  autoload :Node,           'gyngestol/node'
-  autoload :HttpUtils,      'gyngestol/http_utils'
-  autoload :InnerNode,      'gyngestol/inner_node'
-  autoload :TerminalNode,   'gyngestol/terminal_node'
-
-  autoload :Endpoint,       'gyngestol/endpoint'
-  autoload :Escapes,        'gyngestol/escapes'
-  autoload :DSL,            'gyngestol/dsl'
-
-  #module Doc
-  #  autoload :DocGenerator,     'gyngestol/doc/doc_generator'
-  #  autoload :HTMLDocGenerator, 'gyngestol/doc/html_doc_generator'
-  #end
 
 end

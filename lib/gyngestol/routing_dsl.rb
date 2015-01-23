@@ -64,9 +64,9 @@ module Gyngestol
     end
 
     def namespace(matcher, &block)
-      raise ArgumentError unless matcher.is_a?(String)
+      raise ArgumentError unless matcher.class.in?([String, Symbol])
 
-      ns = current_namespace.const_get(matcher.singularize.camelcase)
+      ns = current_namespace.const_get(matcher.to_s.singularize.camelcase)
 
       node = InnerNode.new(route_matcher: Regexp.new(matcher), namespace: ns)
 
